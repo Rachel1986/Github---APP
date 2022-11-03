@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { GithubUser } from './interfaces/GithubUser';
+import { GithubApiService } from './services/github-api.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,20 @@ export class AppComponent {
     username: ['', [ Validators.required ]]
   })
 
+  gUser!: GithubUser // undefined
+
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private githubService: GithubApiService
   ) {}
+
+  procurar() {
+    const username = this.githubForm.get('username')?.value // recuperando o nome de usuário que deve ser procurado
+
+    this.githubService.procurarUsuario(username).subscribe(
+      (user) => {
+        this.gUser = user
+      }
+    )
+  }
 }
