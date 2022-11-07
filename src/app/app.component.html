@@ -1,6 +1,6 @@
 <main class="container">
   <section class="search">
-    <img src="/assets/github.svg" alt="Github">
+    <img src="/assets/github.svg" alt="Github" *ngIf="gUser == undefined">
     <form action="#" id="search-form" [formGroup]="githubForm" (ngSubmit)="procurar()">
       <mat-form-field appearance="outline">
         <mat-label>Username</mat-label>
@@ -10,6 +10,6 @@
         <mat-icon>search</mat-icon>
       </button>
     </form>
-    <h1 *ngIf="gUser != undefined">{{ gUser.name }}</h1>
+    <img *ngIf="gUser != undefined" [src]="gUser.avatar_url">
   </section>
 </main>
